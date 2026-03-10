@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyCare - Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
+      text-align: center;
+      min-height: 100vh;
+      /* Add max-width and margin auto for horizontal centering */
+      max-width: 1200px;
+      /* Or a larger value like 1400px depending on desired max width */
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+      /* Equal padding on left and right for the body itself */
+    }
+
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 0;
+      /* Adjust padding to match the overall body padding */
+      width: 100%;
+      /* Ensure it spans the new body width */
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      /* add spacing from header */
+    }
+
+    .login-box {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      width: 320px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .login-box h2 {
+      margin-bottom: 30px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4a6cf7;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #3b56c4;
+    }
+
+    .login-box p {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .login-box a {
+      color: #4a6cf7;
+      text-decoration: none;
+    }
+
+    #theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    body.light-theme {
+      background: linear-gradient(to bottom, #ffffff, #fffbe6, #fff9cc, #fff6b3);
+      color: #000;
+    }
+
+    .light-theme .login-box {
+      background-color: white;
+      color: #000;
+    }
+
+    .light-theme #theme-toggle {
+      color: #333;
+    }
+
+    .light-theme .login-box h2 {
+      color: #222;
+    }
+
+    body.dark-theme {
+      background: linear-gradient(to bottom, #2a2a2a, #1c1c1c, #121212);
+      color: white;
+    }
+
+    .dark-theme .login-box {
+      background-color: #222;
+      color: white;
+    }
+
+    .dark-theme input,
+    .dark-theme button {
+      background-color: #333;
+      color: white;
+      border: 1px solid #555;
+    }
+
+    .dark-theme button:hover {
+      background-color: #444;
+    }
+
+    .dark-theme a {
+      color: #90caf9;
+    }
+
+    .dark-theme #theme-toggle {
+      color: #fff;
+    }
+
+    .dark-theme .login-box h2 {
+      color: white;
+    }
+
+    .dark-theme .login-box button {
+      background-color: #4a6cf7;
+    }
+
+    .dark-theme .login-box button:hover {
+      background-color: #3b56c4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="selfcare.jpeg" alt="Self Care Logo" class="logo">
+    <h1>MyCare</h1>
+    <button id="theme-toggle" title="Toggle Theme">🌙</button>
+  </div>
+
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Welcome to MyCare</h2>
+      <input type="text" placeholder="Username or Email" />
+      <input type="password" placeholder="Password" />
+      <button>Login</button>
+      <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+  </div>
+
+  <script>
+    const body = document.body;
+    const toggleBtn = document.getElementById('theme-toggle');
+
+    // Apply stored theme on load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.classList.add(savedTheme + '-theme');
+    toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      body.classList.toggle('light-theme');
+
+      const newTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+
+</html>

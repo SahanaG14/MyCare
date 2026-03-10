@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburger Menu Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* The container for the menu */
+        .menu-wrapper {
+            position: relative;
+            float: right; /* Places it on the top right */
+            z-index: 1000;
+        }
+
+        /* The hamburger icon */
+        .hamburger-menu {
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+            color: #333;
+        }
+        
+        /* The dropdown list */
+        .dropdown-menu {
+            display: none; /* This is what we're testing - it should be hidden by default */
+            position: absolute;
+            top: 40px; /* Position below the icon */
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            min-width: 150px;
+        }
+        
+        /* The class that shows the menu */
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        /* Styles for the list items */
+        .dropdown-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .dropdown-menu li {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        
+        .dropdown-menu li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-wrapper">
+        <span class="hamburger-menu">☰</span>
+        <div id="dropdownMenu" class="dropdown-menu">
+            <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        </div>
+    </div>
+
+    <h1>Test Page</h1>
+    <p>This is a blank page to test the hamburger menu functionality.</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const dropdown = document.getElementById('dropdownMenu');
+
+            // This is the only event listener for opening the menu
+            hamburger.addEventListener('click', function() {
+                dropdown.classList.toggle('show');
+            });
+            
+            // This closes the menu if you click anywhere else on the page
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target) && !hamburger.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

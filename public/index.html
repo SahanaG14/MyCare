@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MyCare - Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.5s ease, color 0.5s ease;
+            text-align: center;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        .logo {
+            width: 50px; /* Adjusted size */
+            height: 50px; /* Adjusted size */
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em; /* Adjusted size */
+            color: inherit;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .login-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            width: 320px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .login-box h2 {
+            margin-bottom: 30px;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"],
+        .login-box input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a6cf7;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background-color: #3b56c4;
+        }
+
+        .login-box p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-box a {
+            color: #4a6cf7;
+            text-decoration: none;
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            /*transform: translateY(-50%);*/
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        body.light-theme {
+            background: linear-gradient(to bottom, #ffffff, #fffbe6, #fff9cc, #fff6b3);
+            color: #000;
+        }
+
+       /* .light-theme .login-box {
+            background-color: white;
+            color: #000;
+        } */
+
+        .light-theme #theme-toggle {
+            color: #000; /* Black emoji */
+        }
+
+        .light-theme .login-box h2 {
+            color: #222;
+        }
+
+        body.dark-theme {
+            background: linear-gradient(to bottom, #2a2a2a, #1c1c1c, #121212);
+            color: white;
+        }
+
+        .dark-theme .login-box {
+            background-color: #222;
+            color: white;
+        }
+
+        .dark-theme input,
+        .dark-theme button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .dark-theme button:hover {
+            background-color: #444;
+        }
+
+        .dark-theme a {
+            color: #90caf9;
+        }
+
+        .dark-theme #theme-toggle {
+            color: #fff;
+        }
+
+        .dark-theme .login-box h2 {
+            color: white;
+        }
+
+        .dark-theme .login-box button {
+            background-color: #4a6cf7;
+        }
+
+        .dark-theme .login-box button:hover {
+            background-color: #3b56c4;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            justify-content: flex-start;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #4a6cf7;
+        }
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .message.error {
+            background-color: #ffe0e0;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        .message.success {
+            background-color: #e0ffe0;
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+        .dark-theme .message.error {
+            background-color: #5a2e2e;
+            color: #ffbaba;
+            border-color: #ffbaba;
+        }
+        .dark-theme .message.success {
+            background-color: #2e5a2e;
+            color: #baffba;
+            border-color: #baffba;
+        }
+        .separator-line {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+        .dark-theme .separator-line {
+            border-color: #444;
+        }
+        .header {
+            position: relative;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .login-box {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            #theme-toggle {
+                top: 10px;
+                right: 10px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="selfcare.jpeg" alt="MyCare Logo" class="logo">
+        <h1>MyCare</h1>
+        <button id="theme-toggle" title="Toggle Theme">🌙</button>
+    </div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login to MyCare</h2>
+            <form action="/login" method="POST">
+                <input type="text" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username or Email" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <div class="checkbox-group">
+                    <input type="checkbox" id="keepMeSignedIn" name="keepMeSignedIn" />
+                    <label for="keepMeSignedIn">Keep me signed in</label>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p><a href="#">Forgot Password?</a></p>
+
+            <hr class="separator-line">
+
+            <p>New to MyCare? <a href="/signup">Sign up</a></p>
+            <div id="login-message" class="message"></div>
+        </div>
+    </div>
+
+    <script>
+        const body = document.body;
+        const toggleBtn = document.getElementById('theme-toggle');
+
+        // Apply stored theme on load
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.classList.add(savedTheme + '-theme');
+        toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            body.classList.toggle('light-theme');
+
+            const newTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Function to display messages (from server or client-side)
+        window.displayMessage = function(messageText, type = 'error') {
+            const messageDiv = document.getElementById('login-message');
+            if (messageDiv) {
+                messageDiv.textContent = messageText;
+                messageDiv.className = `message ${type}`;
+                setTimeout(() => {
+                    messageDiv.textContent = '';
+                    messageDiv.className = 'message';
+                }, 5000);
+            }
+        };
+
+        // Check for server-sent messages and pre-fill email
+        const urlParams = new URLSearchParams(window.location.search);
+        const serverMessage = urlParams.get('message');
+        const messageType = urlParams.get('type') || 'error';
+        const prefillEmail = urlParams.get('email'); // Get email from URL
+
+        if (serverMessage) {
+            displayMessage(decodeURIComponent(serverMessage), messageType);
+            history.replaceState(null, '', window.location.pathname); // Clean up URL
+        }
+
+        if (prefillEmail) {
+            document.getElementById('usernameOrEmail').value = decodeURIComponent(prefillEmail);
+        }
+    </script>
+</body>
+
+</html>

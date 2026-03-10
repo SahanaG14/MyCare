@@ -1,0 +1,759 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  min-height: 100vh;
+  transition: background 0.5s ease, color 0.5s ease;
+  /* Add max-width and margin auto for horizontal centering */
+  max-width: 1200px;
+  /* Or a larger value like 1400px depending on desired max width */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+  /* Equal padding on left and right for the body itself */
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+  /* Adjust padding to match the overall body padding */
+  width: 100%;
+  /* Ensure it spans the new body width */
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-family: cursive;
+  transition: color 0.5s ease;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 40px 0;
+  /* Changed from 40px 20px to 40px 0 to let body padding handle sides */
+  width: 100%;
+  /* Ensure it takes full width of the centered body */
+  box-sizing: border-box;
+  /* Include padding in width */
+}
+
+.feature-card {
+  width: 200px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.5s ease, color 0.5s ease;
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+}
+
+.feature-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.feature-card p {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  transition: color 0.5s ease;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.5s ease;
+  z-index: 1000;
+  /* Ensure it's above other content */
+  color: #ab47bc;
+  /* Default color */
+}
+
+/* Light Theme */
+body.light-theme {
+  background: linear-gradient(to bottom, #ffffff, #fffbe6, #fff9cc, #fff6b3);
+  color: #000;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.light-theme h1 {
+  color: #222;
+}
+
+.light-theme .feature-card p {
+  color: #333;
+}
+
+.light-theme #theme-toggle {
+  color: #333;
+}
+
+
+/* Dark Theme */
+body.dark-theme {
+  background: linear-gradient(to bottom, #2a2a2a, #1c1c1c, #121212);
+  color: white;
+}
+
+.dark-theme h1 {
+  color: #dbd0db;
+}
+
+.dark-theme .feature-card {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-theme .feature-card p {
+  color: #f0d9f7;
+}
+
+.dark-theme #theme-toggle {
+  color: #fff;
+}
+
+
+/* --- New Styles for Journal and Study Pages (Desktop/General) --- */
+.page-container {
+  display: flex;
+  padding: 20px 0;
+  /* Adjusted to remove side padding, body padding will handle it */
+  gap: 20px;
+  min-height: calc(100vh - 120px);
+  /* Adjust based on header height */
+  width: 100%;
+  /* Ensure it takes full width of the centered body */
+  box-sizing: border-box;
+  /* Include padding in width */
+  justify-content: flex-start;
+  /* Align items to the start (left) */
+  align-items: flex-start;
+  /* Maintain vertical alignment to the top */
+}
+
+.sidebar {
+  width: 250px;
+  /* Fixed width */
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* Crucial for width calculation */
+}
+
+.main-content-area {
+  flex-grow: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  box-sizing: border-box;
+  /* Crucial for width calculation */
+  max-width: 800px;
+  /* Limit the max width of the main content area */
+}
+
+/* Dark theme for new sections */
+body.dark-theme .sidebar,
+body.dark-theme .main-content-area {
+  background-color: #333;
+  color: #f0d9f7;
+}
+
+body.dark-theme .journal-entry-card,
+body.dark-theme .module-item,
+body.dark-theme .subject-item,
+body.dark-theme .today-plan-item {
+  background-color: rgb(101, 101, 101);
+  color: #f0d9f7;
+  border: 1px solid #555;
+}
+
+
+/* Journal Specific Styles */
+.journal-button,
+.study-button,
+.hair-care-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: left;
+}
+
+.journal-button:hover,
+.study-button:hover,
+.hair-care-button:hover {
+  background-color: #e0e0e0;
+}
+
+body.dark-theme .journal-button,
+body.dark-theme .study-button,
+body.dark-theme .hair-care-button {
+  background-color: #555;
+  color: #f0d9f7;
+  border-color: #666;
+}
+
+body.dark-theme .journal-button:hover,
+body.dark-theme .study-button:hover,
+body.dark-theme .hair-care-button:hover {
+  background-color: #666;
+}
+
+.journal-entry-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.journal-entry-card .journal-title {
+  font-weight: bold;
+}
+
+.journal-entry-card .journal-actions button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* Changed for consistency: journal edit button now matches study edit button */
+  background-color: #ffc107;
+  /* Yellow */
+  color: black;
+}
+
+body.dark-theme .journal-entry-card .journal-actions button.delete {
+  background-color: #dc3545;
+  /* Darker yellow for dark theme */
+  color: white;
+}
+
+.journal-entry-card .journal-actions button.delete {
+  background-color: #dc3545;
+  /* Red */
+  color: white;
+  /* Changed to black text */
+}
+
+.journal-entry-card .journal-actions button:hover {
+  opacity: 0.9;
+}
+
+/* Study Specific Styles */
+.subject-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.subject-item:hover {
+  background-color: #f0f0f0;
+}
+
+body.dark-theme .subject-item:hover {
+  background-color: #555;
+}
+
+.input-group {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-group .new-item-input,
+.input-group .edit-item-input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9em;
+  min-width: 0;
+}
+
+body.dark-theme .input-group .new-item-input,
+body.dark-theme .input-group .edit-item-input {
+  background-color: #555;
+  color: #f0d9f7;
+  border-color: #666;
+}
+
+.input-group .action-button {
+  flex-shrink: 0;
+  padding: 8px 12px;
+}
+
+.module-list {
+  margin-top: 10px;
+  margin-left: 15px;
+  border-left: 2px solid #ccc;
+  padding-left: 10px;
+}
+
+.module-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.module-item .module-actions button {
+  margin-left: 5px;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  /* ADDED: Add to Today's Plan button styles */
+  background-color: #28a745;
+  /* Green */
+  color: white;
+  /* Changed to black text */
+  font-size: 0.8em;
+}
+
+body.dark-theme .module-item .module-actions button {
+  background-color: #4CAF50;
+  /* Darker green for dark theme */
+  color: white;
+  /* Ensure black text for dark theme too */
+}
+
+
+.module-item .module-actions button.edit {
+  background-color: #ffc107;
+  /* Yellow */
+  color: black;
+  /* Changed to black text */
+}
+
+body.dark-theme .module-item .module-actions button.edit {
+  background-color: #d8a100;
+  /* Darker yellow for dark theme */
+  color: black;
+  /* Ensure black text for dark theme too */
+}
+
+.module-item .module-actions button.delete {
+  background-color: #dc3545;
+  /* Red */
+  color: white;
+  /* Changed to white text */
+}
+
+body.dark-theme .module-item .module-actions button.delete {
+  background-color: #dc3545;
+  /* Red */
+  color: white;
+  /* Changed to white text */
+}
+
+.module-item .module-actions button:hover {
+  opacity: 0.9;
+}
+
+.today-plan-list {
+  margin-top: 20px;
+}
+
+.today-plan-item {
+  background-color: #d0d9e1;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.today-plan-item .task-name {
+  text-align:left;
+  flex-grow: 1;
+}
+
+.today-plan-item .task-complete input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+body.dark-theme .today-plan-item {
+  background-color: rgb(101, 101, 101);
+  border-color: #666;
+}
+
+/* General button styling for dynamic content */
+.action-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-right: 5px;
+}
+
+.action-button.primary {
+  background-color: #d1b8f9;
+  color: rgb(8, 8, 8);
+}
+
+.action-button.danger {
+  background-color: #dc3545;
+  color: white;
+  /* Kept white here for general danger buttons as requested specifically for other delete buttons */
+}
+
+.action-button.warning {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+/* Light Theme (default) */
+.study-column-left,
+.study-column-right {
+  background-color: #ffffff;   /* white for light theme */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Dark Theme */
+body.dark-theme .study-column-left,
+body.dark-theme .study-column-right {
+  background-color: #454545;   /* dark gray for dark theme */
+}
+
+/* Hair Care Specific Styles */
+.hair-care-main-content h3 {
+  margin-top: 0;
+  color: #333;
+  /* Default light theme */
+}
+
+body.dark-theme .hair-care-main-content h3 {
+  color: #f0d9f7;
+  /* Dark theme heading */
+}
+
+.hair-care-main-content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.hair-care-main-content li {
+  margin-bottom: 5px;
+}
+
+.hair-care-button.primary {
+  background-color: #d1b8f9; /* purple */
+  color: #000; /* black text */
+  cursor: default; /* remove pointer hand */
+  pointer-events: none; /* disables clicking again */
+}
+
+/* Light theme button */
+.hair-care-button.primary {
+  background-color: #d1b8f9; /* purple */
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Dark theme button */
+.dark-theme .hair-care-button.primary {
+  background-color: #d1b8f9; /* same purple */
+  color: black;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+    /* Slightly less padding on phone for more content space */
+  }
+
+  .header {
+    padding: 15px 0;
+    /* Adjust header padding for phone view */
+  }
+
+  /* --- Main Menu (Feature Cards) adjustments --- */
+  .button-container {
+    flex-direction: column !important;
+    align-items: center;
+    padding: 20px 0;
+    /* Adjusted to remove side padding here */
+  }
+
+  .feature-card {
+    width: 100% !important;
+    max-width: 300px;
+    padding: 10px;
+  }
+
+  .feature-card img {
+    height: 180px;
+  }
+
+  /* --- General Page Layout (Journal, Study, Hair Care) --- */
+  .page-container {
+    flex-direction: column;
+    /* Stack sidebar and main content vertically */
+    align-items: flex-start;
+    /* Align content to the left within the container */
+    padding: 15px 0;
+    /* Consistent padding for all pages, removed side padding */
+    gap: 15px;
+    /* Space between sections */
+  }
+
+  /* Back Button for All Pages */
+  .action-button.primary {
+    /* This targets your "Back to Home" button */
+    margin-bottom: 0px;
+    margin-right: 0px;
+    width: auto;
+  }
+
+  /* --- Journal Page Specific Layout --- */
+  /* Container for "Back to Home" and "New +" buttons */
+  .top-controls-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+  }
+
+  .journal-button.action-button.primary {
+    padding: 8px 15px;
+    margin-left: 0;
+    flex-shrink: 0;
+  }
+
+  /* The 'Your Journals' section (main content area) */
+  .main-content-area#journal-entries-container {
+    width: calc(100% - 30px);
+    /* Calculate width to account for body padding */
+    max-width: 400px;
+    /* Limit the max width for phones, adjust as needed */
+    margin-left: auto;
+    /* Center it if max-width is applied and space allows */
+    margin-right: auto;
+    /* Center it */
+    order: 3;
+    margin-top: 0;
+    padding: 15px;
+    /* Inner padding for the white box content */
+    box-sizing: border-box;
+    /* Ensures padding is included in the width calculation */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll within this box */
+  }
+
+  /* The sidebar element within Journal page if it's used for journal cards */
+  .sidebar.journal-entries-sidebar {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /* --- Journal Entry Form specific adjustments for mobile --- */
+  .journal-entry-form input[type="text"],
+  .journal-entry-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .journal-entry-form .action-button {
+    width: 100%;
+    box-sizing: border-sizing;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  /* Assuming buttons are in a container like this */
+  .journal-entry-form .journal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  /* --- Study Page Specific Layout --- */
+  #study-main-content {
+    /* "Today's Plan" section */
+    order: 2;
+    /* Make it appear after the Back button and before subjects */
+    width: 100%;
+    /* Take full width of the phone screen */
+    margin-top: 15px;
+  }
+
+  #study-sidebar {
+    /* "Subjects" section */
+    order: 3;
+    /* Make it appear below Today's Plan */
+    width: 100%;
+    /* Take full width of the phone screen */
+    margin-top: 20px;
+  }
+
+  /* Input groups (Add New Subject/Module, Edit) within Study */
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .input-group .new-item-input,
+  .input-group .edit-item-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .input-group .action-button {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
+  }
+
+  /* Subject and Module items layout */
+  .subject-item,
+  .module-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 10px;
+  }
+
+  .subject-actions,
+  .module-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+
+  /* Specific Module Action buttons for smaller screens if needed */
+  .module-item .module-actions button {
+    margin-left: 0;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+}
+/* --- New wrapper for sidebar/main-content pages --- */
+.sidebar-page-wrapper {
+    display: flex; /* Make it a flex container by default */
+    width: 100%; /* Ensure it takes full width */
+    gap: 20px; /* Add gap between sidebar and main content */
+    align-items: flex-start; /* Align items to the top */
+}
+
+/* Ensure responsiveness for this wrapper too */
+@media (max-width: 768px) {
+    .sidebar-page-wrapper {
+        flex-direction: column; /* Stack vertically on small screens */
+        gap: 15px; /* Adjust gap when stacked */
+    }
+}
+
+/* Default skin care buttons */
+.skin-care-button {
+  background: rgb(237, 237, 237);
+  color: black;
+}
+
+/* Dark theme skin care buttons */
+.dark-theme .skin-care-button {
+  background: rgb(92, 92, 92);
+  color: white;
+}
+
+/* Dark theme selected/active skin care button */
+.dark-theme .skin-care-button.primary {
+  background: #d1b8f9;
+  color: black;
+}
+
+/* Default fitness buttons */
+.fitness-button {
+  background: rgb(237, 237, 237);
+  color: black;
+}
+
+/* Dark theme fitness buttons */
+.dark-theme .fitness-button {
+  background: rgb(92, 92, 92);
+  color: white;
+}
+
+/* Dark theme selected/active fitness button */
+.dark-theme .fitness-button.primary {
+  background: #d1b8f9;
+  color: black;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCare - Hamburger Menu</title>
+    <style>
+        /* The container for the menu */
+        .menu-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* The hamburger icon itself */
+        .hamburger-menu {
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+            color: #333; /* Default color for light theme */
+        }
+
+        /* The dropdown list, initially hidden */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 40px; /* Positions it below the icon */
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            min-width: 150px;
+        }
+
+        /* The class that shows the dropdown list */
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .dropdown-menu li {
+            padding: 10px 15px;
+            cursor: pointer;
+            white-space: nowrap; /* Prevents text from wrapping */
+        }
+        
+        .dropdown-menu li:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Styles for the dark theme */
+        body.dark-theme {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark-theme .hamburger-menu {
+            color: #fff;
+        }
+        
+        body.dark-theme .dropdown-menu {
+            background-color: #444;
+            border: 1px solid #555;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        body.dark-theme .dropdown-menu li:hover {
+            background-color: #555;
+        }
+
+        .theme-text {
+            /* Adds a small space between the text and icon */
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-wrapper">
+        <span class="hamburger-menu">☰</span>
+        <div id="dropdownMenu" class="dropdown-menu">
+            <ul>
+                <li onclick="toggleTheme()">
+                    <span id="themeToggleText" class="theme-text">Dark theme</span>
+                    <span id="themeIcon">🌙</span>
+                </li>
+                <li onclick="logout()">
+                    Logout ↩
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-theme");
+
+            const themeIcon = document.getElementById("themeIcon");
+            const themeToggleText = document.getElementById("themeToggleText");
+
+            if (body.classList.contains("dark-theme")) {
+                themeIcon.textContent = "☀️";
+                themeToggleText.textContent = "Light theme";
+            } else {
+                themeIcon.textContent = "🌙";
+                themeToggleText.textContent = "Dark theme";
+            }
+        }
+
+        // Logout function
+        function logout() {
+            console.log("Logging out...");
+            alert("Logging out!");
+            // Replace with your actual logout logic
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const dropdown = document.getElementById('dropdownMenu');
+
+            // Toggle menu on click
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target) && !hamburger.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
