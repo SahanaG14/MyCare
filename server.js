@@ -4,7 +4,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://my_care_admin:<mycare_123_sahana146>@cluster0.mwitrit.mongodb.net/?appName=Cluster0")
+mongoose.connect("mongodb+srv://my_care_admin:mycare_123_sahana146@cluster0.mwitrit.mongodb.net/mycare?appName=Cluster0")
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
