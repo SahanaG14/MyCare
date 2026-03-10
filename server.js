@@ -2,7 +2,18 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
 
+mongoose.connect("mongodb+srv://my_care_admin:my_care_123_sahana146@cluster0.mwtrrit.mongodb.net/mycare")
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.log(err));
+
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String
+});
+
+const User = mongoose.model("User", userSchema);
 const app = express();
 const PORT = 3000;
 
@@ -43,26 +54,22 @@ app.get('/signup', (req, res) => {
 });
 
 // Handle login POST request
-app.post('/login', (req, res) => {
-    const { usernameOrEmail, password, keepMeSignedIn } = req.body;
-    console.log('Login attempt:', { usernameOrEmail, password, keepMeSignedIn });
+app.post('/login', async (req, res) => {
+    const { usernameOrEmail, password } = req.body;
 
-    // Dummy authentication logic
-    if (usernameOrEmail === 'user@example.com' && password === 'password123') {
-        req.session.userId = 'dummyUserId123'; // Set a dummy user ID in session
+    try {
+        const user = await User.findOne({ email: usernameOrEmail });
 
-        if (keepMeSignedIn) {
-            // If "Keep me signed in" is checked, extend session duration (e.g., 7 days)
-            req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
-        } else {
-            // If not checked, set a shorter duration or default (e.g., 1 hour, as configured above)
-            req.session.cookie.maxAge = 3600000; // 1 hour
+        if (!user || user.password !== password) {
+            return res.redirect('/login?message=' + encodeURIComponent('Invalid username or password.') + '&type=error');
         }
 
-        res.redirect('/home'); // Redirect to home page on successful login
-    } else {
-        // Redirect back to login with an error message
-        res.redirect('/login?message=' + encodeURIComponent('Invalid username or password.') + '&type=error');
+        req.session.userId = user._id;
+        res.redirect('/home');
+
+    } catch (err) {
+        console.log(err);
+        res.redirect('/login?message=' + encodeURIComponent('Login error') + '&type=error');
     }
 });
 
