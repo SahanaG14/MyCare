@@ -34,7 +34,7 @@ function isAuthenticated(req, res, next) {
 
 // Route for the login page
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 // Route for the signup page
