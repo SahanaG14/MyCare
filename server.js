@@ -74,19 +74,27 @@ app.post('/login', async (req, res) => {
 });
 
 // Handle signup POST request
-app.post('/signup', (req, res) => {
-    const { email, password, confirmPassword, keepMeSignedIn } = req.body;
-    console.log('Signup attempt:', { email, password, confirmPassword, keepMeSignedIn });
+app.post('/signup', async (req, res) => {
+    const { email, password, confirmPassword } = req.body;
 
-    // Dummy registration logic
-    if (password === confirmPassword) {
-        // In a real application, you would save the user to a database here
-        console.log('DUMMY: User registered successfully:', { email });
+    if (password !== confirmPassword) {
+        return res.redirect('/signup?message=' + encodeURIComponent('Passwords do not match') + '&type=error');
+    }
 
-        // *** IMPORTANT CHANGE HERE: Redirect to login with the email pre-filled ***
-        res.redirect('/login?message=' + encodeURIComponent('Registration successful! Please log in.') + '&type=success&email=' + encodeURIComponent(email));
-    } else {
-        res.redirect('/signup?message=' + encodeURIComponent('Passwords do not match.') + '&type=error');
+    try {
+
+        const newUser = new User({
+            email: email,
+            password: password
+        });
+
+        await newUser.save();
+
+        res.redirect('/login?message=' + encodeURIComponent('Account created! Please login.') + '&type=success');
+
+    } catch (err) {
+        console.log(err);
+        res.redirect('/signup?message=' + encodeURIComponent('Signup failed') + '&type=error');
     }
 });
 
