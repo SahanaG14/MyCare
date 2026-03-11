@@ -3,14 +3,17 @@ const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 mongoose.connect("mongodb+srv://my_care_admin:sahana123@cluster0.mwitrit.mongodb.net/mycare?retryWrites=true&w=majority")
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
-const userSchema = new mongoose.Schema({
-    email: String,
-    password: String
+const hashedPassword = await bcrypt.hash(password, 10);
+
+const newUser = new User({
+    email: email,
+    password: hashedPassword
 });
 
 const User = mongoose.model("User", userSchema);
@@ -60,7 +63,7 @@ app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email: usernameOrEmail });
 
-        if (!user || user.password !== password) {
+        if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.redirect('/login?message=' + encodeURIComponent('Invalid username or password.') + '&type=error');
         }
 
