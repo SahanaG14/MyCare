@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-mongoose.connect("mongodb+srv://my_care_admin:sahana123@cluster0.mwitrit.mongodb.net/mycare?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
