@@ -64,7 +64,7 @@ app.post('/login', async (req, res) => {
         const user = await User.findOne({ email: usernameOrEmail });
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.redirect('/login?message=' + encodeURIComponent('Invalid username or password.') + '&type=error');
+            return res.redirect('/login?message=Invalid username or password&type=error');
         }
 
         req.session.userId = user._id;
@@ -72,7 +72,7 @@ app.post('/login', async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.redirect('/login?message=' + encodeURIComponent('Login error') + '&type=error');
+        res.redirect('/login?message=Login error&type=error');
     }
 });
 
@@ -81,23 +81,25 @@ app.post('/signup', async (req, res) => {
     const { email, password, confirmPassword } = req.body;
 
     if (password !== confirmPassword) {
-        return res.redirect('/signup?message=' + encodeURIComponent('Passwords do not match') + '&type=error');
+        return res.redirect('/signup?message=Passwords do not match&type=error');
     }
 
     try {
 
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = new User({
             email: email,
-            password: password
+            password: hashedPassword
         });
 
         await newUser.save();
 
-        res.redirect('/login?message=' + encodeURIComponent('Account created! Please login.') + '&type=success');
+        res.redirect('/login?message=Account created! Please login.&type=success');
 
     } catch (err) {
         console.log(err);
-        res.redirect('/signup?message=' + encodeURIComponent('Signup failed') + '&type=error');
+        res.redirect('/signup?message=Signup failed&type=error');
     }
 });
 
