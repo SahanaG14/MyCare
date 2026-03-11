@@ -9,11 +9,9 @@ mongoose.connect("mongodb+srv://my_care_admin:sahana123@cluster0.mwitrit.mongodb
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
-const hashedPassword = await bcrypt.hash(password, 10);
-
-const newUser = new User({
-    email: email,
-    password: hashedPassword
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String
 });
 
 const User = mongoose.model("User", userSchema);
